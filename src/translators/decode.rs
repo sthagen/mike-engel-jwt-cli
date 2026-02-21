@@ -112,8 +112,8 @@ pub fn decode_token(
 
     let header = decode_header(&jwt).ok();
 
-    let algorithm = if arguments.algorithm.is_some() {
-        translate_algorithm(arguments.algorithm.as_ref().unwrap())
+    let algorithm = if let Some(alg) = &arguments.algorithm {
+        translate_algorithm(alg)
     } else {
         header.as_ref().map(|h| h.alg).unwrap_or(Algorithm::HS256)
     };
